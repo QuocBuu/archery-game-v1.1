@@ -1,45 +1,48 @@
-# LẬP TRÌNH GAME BẮN CUNG
+# Archery Game - Build on AK Embedded Base Kit
 
-<center><img src="resources\images\game_cover.jpg" width="100%"/></center>
+<center><img src="https://github.com/ak-embedded-software/archery-game/blob/main/resources/images/epcb_archery_game.webp" alt="epcb archery game" width="100%"/></center>
 
 <hr>
 
 
 <div align="center">
-    <video src="https://github.com/epcbtech/archery-game/assets/54855481/d493703c-bf5b-4fd2-ae04-b86784a01231" height=200/>
+    <video src="https://github.com/ak-embedded-software/archery-game/assets/54855481/d493703c-bf5b-4fd2-ae04-b86784a01231" alt="epcb archery game" height=200/>
 </div>
 
 
 <hr>
 
 ## I. Giới thiệu
+
+Archery game là một tựa game chạy trên AK Embedded Base Kit. Được xây dựng nhằm mục đích giúp các bạn có đam mê về lập trình nhúng có thể tìm hiểu và thực hành về lập trình event-driven. Trong quá trình xây dựng nên archery game, các bạn sẽ hiểu thêm về cách thiết kế và ứng dụng UML, Task, Signal, Timer, Message, State-machine,... 
+
 ### 1.1 Phần cứng
 
-<p align="center"><img src="resources\images\AK_Embedded_Base_Kit_STM32L151.png" width="480"/></p>
+<p align="center"><img src="https://github.com/ak-embedded-software/archery-game/blob/main/resources/images/AK_Embedded_Base_Kit_STM32L151.webp" alt="AK Embedded Base Kit - STM32L151" width="480"/></p>
 <p align="center"><strong><em>Hình 1:</em></strong> AK Embedded Base Kit - STM32L151</p>
 
-AK Embedded Base Kit là một công cụ đánh giá dành cho các bạn học phần mềm nhúng nâng cao.
+[AK Embedded Base Kit](https://epcb.vn/products/ak-embedded-base-kit-lap-trinh-nhung-vi-dieu-khien-mcu) là một evaluation kit dành cho các bạn học phần mềm nhúng nâng cao.
 
 KIT tích hợp LCD **OLED 1.3", 3 nút nhấn, và 1 loa Buzzer phát nhạc**, với các trang bị này thì đã đủ để học hệ thống event-driven thông qua thực hành thiết kế máy chơi game.
 
 KIT cũng tích hợp **RS485**, **NRF24L01+**, và **Flash** lên đến 32MB, thích hợp cho prototype các ứng dụng thực tế trong hệ thống nhúng hay sử dụng như: truyền thông có dây, không dây wireless, các ứng dụng lưu trữ data logger,...
 
 ### 1.2 Mô tả trò chơi và đối tượng
-Phần mô tả sau đây về **“Archery game”** là giải thích cách chơi và cơ chế xử lý của trò chơi. Nhằm phục vụ cho việc thiết kế và phát triển trò chơi về sau.
+Phần mô tả sau đây về **“Archery game”** , giải thích cách chơi và cơ chế xử lý của trò chơi. Tài liệu này dùng để tham khảo thiết kế và phát triển trò chơi về sau.
 
-<p align="center"><img src="resources\images\menu_game.png" width="480"/></p>
+<p align="center"><img src="https://github.com/ak-embedded-software/archery-game/blob/main/resources/images/menu_game.webp" alt="menu game" width="480"/></p>
 <p align="center"><strong><em>Hình 2:</em></strong> Menu game</p>
 
-Trò chơi bắt đầu với màn hình **Menu game** với nhiều chọn lựa: 
-- **Archery Game:** chọn vào để bắt đầu chơi game.
-- **Setting:** chọn vào để cài đặt các thông số của game.
-- **Charts:** chọn vào để xem top 3 điểm cao nhất đạt được.
-- **Exit:** vào màn hình nghỉ.
+Trò chơi bắt đầu bằng màn hình **Menu game** với các lựa chọn sau: 
+- **Archery Game:** Chọn vào để bắt đầu chơi game.
+- **Setting:** Chọn vào để cài đặt các thông số của game.
+- **Charts:** Chọn vào để xem top 3 điểm cao nhất đạt được.
+- **Exit:** Thoát menu vào màn hình chờ.
 
-<p align="center"><img src="resources\images\objects_in_the_game.png" width="600"/></p>
+<p align="center"><img src="https://github.com/ak-embedded-software/archery-game/blob/main/resources/images/objects_in_the_game.webp" alt="archery game play screen" width="600"/></p>
 <p align="center"><strong><em>Hình 3:</em></strong> Màn hình game play và các đối tượng</p>
 
-#### Các đối tượng (Object) trong game:
+#### 1.2.1 Các đối tượng (Object) trong game:
 |Đối tượng|Tên đối tượng|Mô tả|
 |---|---|---|
 |**Cung tên**|Archery|Di chuyển lên/xuống để chọn vị trí bắn ra mũi tên|
@@ -50,15 +53,15 @@ Trò chơi bắt đầu với màn hình **Menu game** với nhiều chọn lự
 
 **(*)** Trong phần còn lại của tài liệu sẽ dùng tên của các đối tượng để đề cập đến đối tượng.
 
-#### Cách chơi game: 
+#### 1.2.2 Cách chơi game: 
 - Trong trò chơi này bạn sẽ điều khiển Archery, di chuyển **lên/xuống** bằng hai nút **[Up]/[Down]**, để chọn vị trí **bắn ra** Arrow.
 - Khi nhấn nút **[Mode]** Arrow sẽ được bắn ra, nhằm phá hủy các Meteoroid đang bay đến.
 - Mục tiêu trò chơi là kiếm được càng nhiều điểm càng tốt, trò chơi sẽ kết thúc khi có Meteoroid chạm vào Border.
 
-#### Cơ chế hoạt động:
+#### 1.2.3 Cơ chế hoạt động:
 - **Cách tính điểm:** Điểm được tính bằng số lượng Meteoroid bị phá hủy. Mỗi Meteoroid bị phá hủy tương ứng với 10 điểm. Số điểm tích lũy được sẽ hiển thị ở góc dưới bên phải màn hình.
-- **Độ khó:** Mỗi khi tích lũy được 200 điểm, tốc độ bay của Meteoroid sẽ tăng lên một cấp độ. Độ khó ban đầu có thể cài đặt trong phần **setting**.
-- **Giới hạn của Arrow:** Khi bắn thì số lượng Arrow hiện có sẽ giảm đi tương ứng số lượng Arrow đang bay, nếu Arrow hiện có giảm về "0" thì không thể bắn được và sẽ có âm thanh báo. Số lượng Arrow hiện có sẽ được hồi lại khi phá hủy được Meteoroid hoặc Arrow bay hết màn hình game. Số lượng Arrow được hiển thị ở góc dưới bên trái màn hình và có thể thay đổi trong phần **setting**.
+- **Độ khó:** Mỗi khi tích lũy được 200 điểm, tốc độ bay của Meteoroid sẽ tăng lên một cấp độ. Độ khó ban đầu có thể cài đặt trong phần **Setting**.
+- **Giới hạn của Arrow:** Khi bắn thì số lượng Arrow hiện có sẽ giảm đi tương ứng số lượng Arrow đang bay, nếu Arrow hiện có giảm về "0" thì không thể bắn được và sẽ có âm thanh báo. Số lượng Arrow hiện có sẽ được hồi lại khi phá hủy được Meteoroid hoặc Arrow bay hết màn hình game. Số lượng Arrow được hiển thị ở góc dưới bên trái màn hình và có thể thay đổi trong phần **Setting**.
 
 - **Animation:** Để trò chơi thêm phần sinh động thì các đối tượng sẽ có thêm hoạt ảnh lúc di chuyển.
 - **Kết thúc trò chơi:** Khi Meteoroid chạm vào Border, trò chơi sẽ kết thúc. Các đối tượng sẽ được reset và số điểm sẽ được lưu. Bạn sẽ vào màn hình “Game Over” với 3 lựa chọn là:
@@ -66,7 +69,7 @@ Trò chơi bắt đầu với màn hình **Menu game** với nhiều chọn lự
   - **Charts:** vào xem bảng xếp hạng.
   - **Home:** về lại menu game.
 
-<p align="center"><img src="resources\images\game_over.png" width="480"/></p>
+<p align="center"><img src="https://github.com/ak-embedded-software/archery-game/blob/main/resources/images/game_over.webp" alt="archery game over screen" width="480"/></p>
 <p align="center"><strong><em>Hình 4:</em></strong> Màn hình Game_over</p>
 
 ## II. Thiết kế - ARCHERY GAME
@@ -82,7 +85,7 @@ Chi tiết các khái niệm các bạn tham khảo tại bài viết: [AK Embed
 ### 2.1 Sơ đồ trình tự
 **Sơ đồ trình tự** được sử dụng để mô tả trình tự của các Message và luồng tương tác giữa các đối tượng trong một hệ thống.
 
-<p align="center"><img src="resources\images\sequence_object\All_game_UML.png" width="720"/></p>
+<p align="center"><img src="https://github.com/ak-embedded-software/archery-game/blob/main/resources/images/sequence_object/archery_game_UML.webp" alt="archery game UML" width="720"/></p>
 <p align="center"><strong><em>Hình 5:</em></strong> The sequence diagram</p>
 
 ### Ghi chú:
@@ -133,7 +136,7 @@ Chi tiết các khái niệm các bạn tham khảo tại bài viết: [AK Embed
 ### 2.2 Chi tiết
 
 Sau khi xác định được các đối tượng trong game mà chúng ta cần, tiếp theo chúng ta phải liệt kê ra các thuộc tính, các task, các signal và bitmap mà trong game sẽ sử dụng tới.
-Việc liệt kê càng chi tiết thì việc làm game diễn ra càng nhanh và tạo tình rõ ràng minh bạch cho phần tài nguyên giúp phần code game diễn ra suông sẽ hơn.
+Việc liệt kê càng chi tiết thì việc làm game diễn ra càng nhanh và tạo tình rõ ràng minh bạch cho phần tài nguyên giúp phần code game diễn ra suông sẻ hơn.
 
 #### 2.2.1 Thuộc tính đối tượng
 Việc liệt kê các thuộc tính của đối tượng trong game có các tác dụng quan trọng sau:
@@ -142,7 +145,7 @@ Việc liệt kê các thuộc tính của đối tượng trong game có các t
 - Khi bạn xác định trước các thuộc tính cần thiết, bạn giảm thiểu khả năng bỏ sót hoặc nhầm lẫn trong việc xử lý và sử dụng các thuộc tính.
 
 **Trạng thái** của một đối tượng được biểu diễn bởi các **thuộc tính**. Trong trò chơi này các đối tượng có các thuộc tính cụ thể là:
-- **visible:** Quy định hiển thị của đối tượng.
+- **visible:** Quy định hiển thị, ẩn/hiện của đối tượng.
 - **x, y:** Quy định vị trí của đối tượng trên màn hình.
 - **action_image:** Quy định hoạt ảnh tạo animation.
 
@@ -181,20 +184,20 @@ Ví dụ:
   - settingsetup.meteoroid_speed : Cấu hình tốc độ của thiên thạch.
 
 #### 2.2.2 Task
-Trong lập trình event-driven, task là một đơn vị độc lập đảm nhiệm một nhóm công việc cụ thể. Khi hệ thống scheduler tìm thấy message liên quan đến task trong hàng đợi, hệ thống sẽ gọi hàm thực thi của task để xử lý message được gửi đến. Một số tác dụng quan trọng của task:
+Trong lập trình event-driven, task là một đơn vị độc lập đảm nhiệm một nhóm công việc nhất định. Khi hệ thống scheduler tìm thấy message liên quan đến task trong hàng đợi, hệ thống sẽ gọi hàm thực thi của task để xử lý message được gửi đến. Một số tác dụng quan trọng của task:
 - **Xử lý sự kiện:** Task được sử dụng để xử lý các message được bắn đến khi có sự kiện xảy ra. Mỗi task có thể được liên kết với một sự kiện cụ thể và thực thi một loạt các hành động khi sự kiện đó xảy ra.
 - **Đồng bộ hóa:** Task cung cấp cơ chế đồng bộ hóa cho việc xử lý các sự kiện. Khi một sự kiện xảy ra, task tương ứng được kích hoạt và thực thi. Các task khác sẽ đợi cho đến khi task hiện tại hoàn thành trước khi được kích hoạt. Điều này giúp đảm bảo rằng các hành động xử lý sự kiện được thực hiện theo một thứ tự nhất định và tránh xung đột.
 - **Quản lý luồng điều khiển:** Task cho phép quản lý luồng sự kiện trong ứng dụng event-driven. Bằng cách sử dụng task, bạn có thể xác định thứ tự thực thi của các hành động khi xảy ra các sự kiện khác nhau.
-- **Tách biệt logic:** Sử dụng task giúp tách biệt logic xử lý sự kiện. Điều này giúp tăng tính sạch sẽ, dễ đọc.
+- **Tách biệt logic:** Sử dụng task giúp tách biệt logic xử lý sự kiện, điều này giúp Source code rõ ràng, dễ đọc.
 - **Phân cấp nhiệm vụ:** Task level cho phép sắp xếp trình tự ưu tiên xử lý các message của task ở trong hàng đợi của hệ thống. Trong game các task level của game điều là 4 nên task nào được gọi trước sẽ xử lý trước. 
 
-<p align="center"><img src="resources\images\table_task.png" width="720"/></p>
+<p align="center"><img src="https://github.com/ak-embedded-software/archery-game/blob/main/resources/images/table_task.webp" alt="archery tasks design" width="720"/></p>
 <p align="center"><strong><em>Hình 6:</em></strong> Bảng Task của các đối tượng</p>
 
-#### 2.2.3 Signal
-**Signal** là một cơ chế truyền thông tin giữa các thành phần trong hệ thống event-driven. Khi một sự kiện xảy ra, nó có thể gửi một signal để thông báo cho các thành phần khác về việc xảy ra của sự kiện đó. 
+#### 2.2.3 Message & Signal
+**Message** được chia làm 2 loại chính, Message chỉ chứa Signal và Message vừa chứa Signal và Data. **Message** tương đương với **Signal**
 
-<p align="center"><img src="resources\images\table_signal.png" width="720"/></p>
+<p align="center"><img src="https://github.com/ak-embedded-software/archery-game/blob/main/resources/images/table_signal.webp" alt="archery signals design" width="720"/></p>
 <p align="center"><strong><em>Hình 7:</em></strong> Bảng Signal của từng Task</p>
 
 **(*)** Tác dụng của các Signal trong game: xem tại Ghi chú - Hình 5
@@ -203,7 +206,7 @@ Trong lập trình event-driven, task là một đơn vị độc lập đảm n
 ### 3.1 Archery
 **Sequence diagram:**
 
-<p align="center"><img src="resources\images\sequence_object\archery_sequence.png" width="640"/></p>
+<p align="center"><img src="https://github.com/ak-embedded-software/archery-game/blob/main/resources/images/sequence_object/archery_sequence.webp" alt="archery sequence" width="640"/></p>
 <p align="center"><strong><em>Hình 8:</em></strong> Archery sequence</p>
 
 **Tóm tắt nguyên lý:** Archery sẽ nhận Signal thông được gửi từ 2 nguồn là Screen và Button. Quá trình xử lý của đối tượng phần làm 3 giai đoạn:
@@ -309,7 +312,7 @@ Hàm ar_game_archery_handle() là một hàm xử lý các thông điệp (messa
 
 **Sequence diagram:**
 
-<p align="center"><img src="resources\images\sequence_object\arrow_sequence.png" width="640"/></p>
+<p align="center"><img src="https://github.com/ak-embedded-software/archery-game/blob/main/resources/images/sequence_object/arrow_sequence.webp" alt="arrow sequence" width="640"/></p>
 <p align="center"><strong><em>Hình 9:</em></strong> Arrow sequence</p>
 
 **Tóm tắt nguyên lý:** Arrow sẽ nhận Signal thông được gửi từ 2 nguồn là Screen và Button. Quá trình xử lý của đối tượng phần làm 3 giai đoạn:
@@ -319,13 +322,13 @@ Hàm ar_game_archery_handle() là một hàm xử lý các thông điệp (messa
   - Hành động: Button gửi Signal bắn tên cho Arrow mỗi khi nhấn nút. Arrow sẽ sẽ kiểm tra số mũi tên và nếu còn thì sẽ cập nhật trạng thái để bắn mũi tên ra tại vị trí hiện tại của Archery
 - **Giai đoạn 3:** Kết thúc game, thực hiện cài đặt lại trạng thái của Arrow trước khi thoát game.
 
-**Code:** Tương tự Archery (link tham khảo [Archery_game](https://github.com/epcbtech/archery-game.git))
+**Code:** Tương tự Archery (link tham khảo [Archery_game](https://github.com/ak-embedded-software/archery-game.git))
 
 ### 3.3 Bang
 
 **Sequence diagram:**
 
-<p align="center"><img src="resources\images\sequence_object\bang_sequence.png" width="640"/></p>
+<p align="center"><img src="https://github.com/ak-embedded-software/archery-game/blob/main/resources/images/sequence_object/bang_sequence.webp" alt="bang sequence" width="640"/></p>
 <p align="center"><strong><em>Hình 10:</em></strong> Bang sequence</p>
 
 **Tóm tắt nguyên lý:** Bang sẽ nhận Signal thông được gửi từ Screen. Quá trình xử lý của đối tượng phân làm 3 giai đoạn:
@@ -333,13 +336,13 @@ Hàm ar_game_archery_handle() là một hàm xử lý các thông điệp (messa
 - **Giai đoạn 2:** Chơi game, Vụ nổ chỉ xuất sau khi Meteoroid bị phá hủy. Vụ nổ bao gồm các hoạt ảnh được cập nhật sau mỗi 100ms sau 3 hoạt ảnh thì sẽ tự reset.
 - **Giai đoạn 3:** Kết thúc game, thực hiện cài đặt lại trạng thái của Arrow trước khi thoát game.
 
-**Code:** Tương tự Archery (link tham khảo [Archery_game](https://github.com/epcbtech/archery-game.git))
+**Code:** Tương tự Archery (link tham khảo [Archery_game](https://github.com/ak-embedded-software/archery-game.git))
 
 ### 3.4 Border
 
 **Sequence diagram:**
 
-<p align="center"><img src="resources\images\sequence_object\border_sequence.png" width="640"/></p>
+<p align="center"><img src="https://github.com/ak-embedded-software/archery-game/blob/main/resources/images/sequence_object/border_sequence.webp" alt="border sequence" width="640"/></p>
 <p align="center"><strong><em>Hình 11:</em></strong> Border sequence</p>
 
 **Tóm tắt nguyên lý:** Border là 1 đối tượng bất động trong game. Có nhiệm vụ update level khi đến mốc điểm quy định và kiểm tra game over.
@@ -349,13 +352,13 @@ Hàm ar_game_archery_handle() là một hàm xử lý các thông điệp (messa
   - Kiểm tra vị trí của các Meteoroid nếu Meteoroid chạm vào Border thì gửi tín hiệu Reset đến Screen
 - **Giai đoạn 3:** Kết thúc game, thực hiện cài đặt lại trạng thái của Border trước khi thoát game.
 
-**Code:** Tương tự Archery (link tham khảo [Archery_game](https://github.com/epcbtech/archery-game.git))
+**Code:** Tương tự Archery (link tham khảo [Archery_game](https://github.com/ak-embedded-software/archery-game.git))
 
 ###  3.5 Meteoroid
 
 **Sequence diagram:**
 
-<p align="center"><img src="resources\images\sequence_object\meteoroid_sequence.png" width="640"/></p>
+<p align="center"><img src="https://github.com/ak-embedded-software/archery-game/blob/main/resources/images/sequence_object/meteoroid_sequence.webp" alt="meteoroid sequence" width="640"/></p>
 <p align="center"><strong><em>Hình 12:</em></strong> Meteoroid sequence</p>
 
 **Tóm tắt nguyên lý:** Meteoroid là đối tượng xuất hiện và di chuyển liên tục trong game nhận signal từ Screen. Chia làm 3 giai đoạn:
@@ -365,7 +368,7 @@ Hàm ar_game_archery_handle() là một hàm xử lý các thông điệp (messa
   - Kiểm tra vị trí của các Arrow nếu Arrow chạm vào Meteoroid thì thực hiện reset Arrow và Meteoroid rồi tạo Bang.
 - **Giai đoạn 3:** Kết thúc game, thực hiện cài đặt lại trạng thái của Meteoroid trước khi thoát game.
 
-**Code:** Tương tự Archery (link tham khảo [Archery_game](https://github.com/epcbtech/archery-game.git))
+**Code:** Tương tự Archery (link tham khảo [Archery_game](https://github.com/ak-embedded-software/archery-game.git))
 
 ## IV. Hiển thị và âm thanh trong trò chơi bắn cung
 ### 4.1 Đồ họa
@@ -374,9 +377,9 @@ Trong trò chơi, màn hình hiện thị là 1 màn hình **LCD OLed 1.3"** có
 
 Đồ họa được thiết kế từng phần theo từng đối tượng bằng phần mềm [Photopea](https://www.photopea.com/)
 
-#### Thiết kế đồ họa cho các đối tượng
+#### 4.1.1 Thiết kế đồ họa cho các đối tượng
 
-<p align="center"><img src="resources\images\table_bitmap.png" width="720"/></p>
+<p align="center"><img src="https://github.com/ak-embedded-software/archery-game/blob/main/resources/images/table_bitmap.webp" alt="archery game bitmap" width="720"/></p>
 <p align="center"><strong><em>Hình 13:</em></strong> Bitmap của các đối tượng</p>
 
 **Bitmap** là một cấu trúc dữ liệu được sử dụng để lưu trữ và hiển thị hình ảnh trong game.
@@ -385,7 +388,7 @@ Trong trò chơi, màn hình hiện thị là 1 màn hình **LCD OLed 1.3"** có
 
 **Ghi chú:** Trong thiết kế trên có nhiều ảnh khác nhau cho cùng 1 đối tượng để tạo animation cho đối tượng đó nhằm tăng tính chân thật lúc chơi game.
 
-**Code:**
+#### 4.1.2 Code
 
 **Archer display:**
 ```sh
@@ -551,7 +554,7 @@ void view_scr_archery_game() {
 
 </details>
 
-### 4.3 Âm thanh
+### 4.2 Âm thanh
 Âm thành được thiết kế qua website [Arduino Music](https://www.instructables.com/Arduino-Music-From-Sheet-Music/)
 
 Trong khi chơi, để trò chơi thêm phần xinh động và chân thật thì việc có âm thanh là điều cần thiết. 
