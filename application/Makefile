@@ -14,7 +14,7 @@ NAME_MODULE = ak-base-kit-stm32l151-application
 PROJECT = $(NAME_MODULE)
 
 GCC_PATH			= $(HOME)/Workspace/Tools/gcc-arm-none-eabi-10.3-2021.10
-PROGRAMER_PATH		= $(HOME)/Workspace/Tools/STMicroelectronics/STM32Cube/STM32CubeProgrammer/bin
+PROGRAMER_PATH		= $(HOME)/Workspace/Tools/stm_programer/bin
 OPENOCD_CFG_PATH	= /usr/local/share/openocd/scripts/board/stm32ldiscovery.cfg
 
 # App start address, that need sync with declare in linker file and interrupt vector table.

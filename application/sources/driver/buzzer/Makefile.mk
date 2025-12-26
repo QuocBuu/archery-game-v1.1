@@ -3,4 +3,5 @@ CPPFLAGS += -I./sources/driver/buzzer
 
 VPATH += sources/driver/buzzer
 
+SOURCES += sources/driver/buzzer/audio.c
 SOURCES += sources/driver/buzzer/buzzer.c
